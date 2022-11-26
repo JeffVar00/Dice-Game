@@ -1,0 +1,29 @@
+package practica1.juego;
+
+import java.util.Random;
+
+public class Dado {
+
+    public Dado() {
+        lanzar();
+    }
+
+    public final void lanzar() {
+        puntos = 1 + r.nextInt(6);
+        System.out.printf(
+                "Se lanzaron los dados y se obtuvieron %d punto(s)..\n",
+                puntos);
+    }
+
+    public int obtenerPuntos() {
+        return puntos;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d", obtenerPuntos());
+    }
+
+    private static Random r = new Random();
+    private int puntos;
+}

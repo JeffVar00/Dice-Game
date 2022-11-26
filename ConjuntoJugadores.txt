@@ -1,0 +1,101 @@
+package practica1.juego;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConjuntoJugadores {
+
+    public ConjuntoJugadores() {
+        this.jugadores = new ArrayList<>();
+    }
+
+    public void agregarJugador(Jugador nuevoJugador) {
+        jugadores.add(nuevoJugador);
+        System.out.printf("Se une un nuevo jugador: %s\n",
+                nuevoJugador.obtenerNombre());
+    }
+
+    public int numeroJugadores() {
+        return jugadores.size();
+    }
+
+    public void jugar(ConjuntoDados dados) {
+        for (Jugador j : jugadores) {
+            j.jugar(dados);
+        }
+
+        obtenerGanadorRonda();
+        if (ganadorRonda() != null) {
+            System.out.printf(
+                    "%s gana esta ronda, y acumula %d victoria(s)..\n",
+                    ganadorRonda().obtenerNombre(),
+                    ganadorRonda().obtenerVictorias());
+        } else {
+            System.out.println("Esta ronda termina en un empate..");
+        }
+    }
+
+    private void obtenerGanadorRonda() {
+        ganadorRonda = null;
+
+        Jugador ultimoGanador = null;
+        boolean hayEmpate = false;
+        for (Jugador actual : jugadores) {
+            if (ultimoGanador != null) {
+                if (actual.obtenerPuntos() > ultimoGanador.obtenerPuntos()) {
+                    ultimoGanador = actual;
+                    hayEmpate = false;
+                } else if (actual.obtenerPuntos() == ultimoGanador.obtenerPuntos()) {
+                    hayEmpate = true;
+                }
+            } else {
+                ultimoGanador = actual;
+            }
+        }
+
+        if ((ultimoGanador != null) && !hayEmpate) {
+            ganadorRonda = ultimoGanador;
+            ganadorRonda.incrementarVictorias();
+        }
+    }
+
+    public Jugador ganadorRonda() {
+        return ganadorRonda;
+    }
+
+    public Jugador ganador() {
+        Jugador ultimoGanador = null;
+        boolean hayEmpate = false;
+        for (Jugador actual : jugadores) {
+            if (ultimoGanador != null) {
+                if (actual.obtenerVictorias() > ultimoGanador.obtenerVictorias()) {
+                    ultimoGanador = actual;
+                    hayEmpate = false;
+                } else if (actual.obtenerVictorias() == ultimoGanador.obtenerVictorias()) {
+                    hayEmpate = true;
+                }
+            } else {
+                ultimoGanador = actual;
+            }
+        }
+        return (hayEmpate ? null : ultimoGanador);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r = new StringBuilder("{");
+        boolean m = false;
+        for (Jugador d : jugadores) {
+            if (m) {
+                r.append(", ");
+            }
+            r.append(d);
+            m = true;
+        }
+        r.append("}");
+        return r.toString();
+    }
+
+    private List<Jugador> jugadores;
+    private Jugador ganadorRonda = null;
+}

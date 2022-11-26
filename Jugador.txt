@@ -1,0 +1,53 @@
+package practica1.juego;
+
+public class Jugador {
+
+    public Jugador(String nombre) {
+        this.nombre = nombre;
+        this.victorias = 0;
+        this.puntosObtenidos = 0;
+    }
+
+    public String obtenerNombre() {
+        return nombre;
+    }
+
+    public int obtenerPuntos() {
+        return puntosObtenidos;
+    }
+
+    public int obtenerVictorias() {
+        return victorias;
+    }
+
+    public void incrementarVictorias() {
+        victorias++;
+    }
+
+    public void jugar(ConjuntoDados dados) {
+        System.out.printf(
+                "%s lanza los dados..\n",
+                obtenerNombre());
+
+        dados.lanzar();
+        puntosObtenidos = dados.obtenerPuntos();
+
+        System.out.printf(
+                "%s obtiene %d puntos..\n",
+                obtenerNombre(),
+                obtenerPuntos());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{%s, %d, %d}",
+                obtenerNombre(),
+                obtenerVictorias(),
+                obtenerPuntos());
+    }
+
+    private String nombre;
+    private int puntosObtenidos;
+    private int victorias;
+
+}

@@ -1,0 +1,37 @@
+package practica1.juego;
+
+public class Juego {
+
+    public Juego() {
+        this.dados = new ConjuntoDados();
+        this.jugadores = new ConjuntoJugadores();
+    }
+
+    public void agregarJugador(Jugador nuevoJugador) {
+        jugadores.agregarJugador(nuevoJugador);
+    }
+
+    public int numeroJugadores() {
+        return jugadores.numeroJugadores();
+    }
+
+    public void jugar(int rondas) {
+        for (int r = 0; r < rondas; r++) {
+            jugarRonda();
+        }
+    }
+
+    private void jugarRonda() {
+        System.out.println("Inicia una nueva ronda..");
+        jugadores.jugar(dados);
+        System.out.println();
+    }
+
+    public Jugador ganador() {
+        return jugadores.ganador();
+    }
+
+    public static final int MAX_RONDAS = 7;
+    private ConjuntoDados dados;
+    private ConjuntoJugadores jugadores;
+}

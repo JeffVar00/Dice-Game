@@ -1,0 +1,50 @@
+package practica1.juego;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConjuntoDados {
+
+    public ConjuntoDados(int maxDados) {
+        this.dados = new ArrayList<>();
+        for (int i = 0; i < maxDados; i++) {
+            dados.add(new Dado());
+        }
+    }
+
+    public ConjuntoDados() {
+        this(MAX_DADOS);
+    }
+
+    public void lanzar() {
+        for (Dado d : dados) {
+            d.lanzar();
+        }
+    }
+
+    public int obtenerPuntos() {
+        int r = 0;
+        for (Dado d : dados) {
+            r += d.obtenerPuntos();
+        }
+        return r;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r = new StringBuilder("{");
+        boolean m = false;
+        for (Dado d : dados) {
+            if (m) {
+                r.append(", ");
+            }
+            r.append(d);
+            m = true;
+        }
+        r.append("}");
+        return r.toString();
+    }
+
+    public static final int MAX_DADOS = 2;
+    private List<Dado> dados;
+}
